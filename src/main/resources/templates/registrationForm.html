@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/indexStyle.css}" rel="stylesheet" />
+</head>
+    <body>
+        <h1>Get your greeting <a href="/greeting">here</a></h1>
+
+        <form action="processForm" method="post" >
+            <div class="container">
+                <h2>Register</h2>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+
+                <label for="firstName"><b>First Name</b></label>
+                <input type="text" placeholder="Enter Email" name="firstName" id="firstName" required>
+
+                <label for="lastName"><b>Last Name</b></label>
+                <input type="text" placeholder="Enter Email" name="lastName" id="lastName" required>
+
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+                <label for="matchingPassword"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="matchingPassword" id="matchingPassword" required>
+                <hr>
+
+                <button type="submit" class="registerbtn">Register</button>
+            </div>
+
+        </form>
+    </body>
+</html>
