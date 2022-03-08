@@ -3,6 +3,7 @@ package com.example.MyPetProject.controller;
 import com.example.MyPetProject.model.User;
 import com.example.MyPetProject.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,19 +14,13 @@ public class GreetingController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
-    }
-
     @GetMapping("/")
     public String showHomePage(Model model) {
         return "index";
     }
     @GetMapping("/registrationForm")
     public String showForm(Model model) {
-        model.addAttribute("user", new User());
+        //model.addAttribute("user", new User());
         return "registrationForm";
     }
 
@@ -33,16 +28,36 @@ public class GreetingController {
     public String addUser(@RequestParam String firstName, @RequestParam String lastName,
                           @RequestParam String email, @RequestParam String password,
                           @RequestParam String matchingPassword, Model model){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User(firstName, lastName, email, password, matchingPassword);
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         userRepository.save(user);
-        return "redirect:/";
+        return "registrationSuccess";
+        //return "redirect:/";
     }
-
-    /*@GetMapping("/processForm")
-    public String processForm(@ModelAttribute("user") User theUser, Model model) {
+/*
+    @GetMapping("/processForm")
+    public String processForm(Model model) {
         Iterable<User> users = userRepository.findAll();
         model.addAttribute("users", users);
-        System.out.println("User's info: " + theUser.toString());
         return "user-confirmation";
-    }*/
+    }
+*/
+    @GetMapping("/myLogin")
+    public String login(Model model) {
+        return "myLogin";
+    }
+
+    @GetMapping("/personAccount")
+    public String accountLogin(Model model) {
+        return "personAccount";
+    }
+
+    @GetMapping("/users")
+    public String showUsers(Model model) {
+        Iterable<User> listUsers = userRepository.findAll();
+        model.addAttribute("listUsers", listUsers);
+        return "users";
+    }
 }

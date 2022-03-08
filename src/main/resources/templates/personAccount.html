@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1>Ваш личный кабинет</h1>
+<p>
+    Здравствуйте, <b>[[${#request.userPrincipal.principal.firstName}]] !</b>
+</p>
+<p>Ваш email: [[${#request.userPrincipal.principal.email}]]</p>
+<button>Изменить пароль</button>
+<br>
+<h4>
+    <a th:href="@{/users}">All users </a>
+</h4>
+</body>
+</html>
