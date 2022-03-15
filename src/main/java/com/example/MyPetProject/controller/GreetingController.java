@@ -15,42 +15,34 @@ public class GreetingController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public String showHomePage(Model model) {
+    public String showHomePage() {
         return "index";
     }
+
     @GetMapping("/registrationForm")
-    public String showForm(Model model) {
-        //model.addAttribute("user", new User());
+    public String showForm() {
         return "registrationForm";
     }
 
     @RequestMapping(value = "/processForm", method = {RequestMethod.POST})
     public String addUser(@RequestParam String firstName, @RequestParam String lastName,
                           @RequestParam String email, @RequestParam String password,
-                          @RequestParam String matchingPassword, Model model){
+                          @RequestParam String matchingPassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User(firstName, lastName, email, password, matchingPassword);
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
         return "registrationSuccess";
-        //return "redirect:/";
     }
-/*
-    @GetMapping("/processForm")
-    public String processForm(Model model) {
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "user-confirmation";
-    }
-*/
+
     @GetMapping("/myLogin")
-    public String login(Model model) {
+    public String login() {
         return "myLogin";
     }
 
     @GetMapping("/personAccount")
-    public String accountLogin(Model model) {
+    public String accountLogin() {
         return "personAccount";
     }
 
@@ -60,4 +52,38 @@ public class GreetingController {
         model.addAttribute("listUsers", listUsers);
         return "users";
     }
+
+    @GetMapping("/changePass")
+    public String changePass() {
+        return "changePass";
+    }
+
+    @PostMapping("/passUpdate")
+    public String updatePass(@RequestParam String oldPassword,
+                             @RequestParam String newPassword,
+                             @RequestParam String passConfirm) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (userRepository.findByPassword(oldPassword) != null) {
+            User user = userRepository.findByPassword(oldPassword);
+            String encodedPassword = encoder.encode(newPassword);
+            user.setPassword(encodedPassword);
+            user.setMatchingPassword(passConfirm);
+            userRepository.save(user);
+        }
+        return "passUpdatedSuccess";
+    }
+    /*@PostMapping("/user/updatePassword")
+    @PreAuthorize("hasRole('READ_PRIVILEGE')")
+    public GenericResponse changeUserPassword(Locale locale,
+                                              @RequestParam("password") String password,
+                                              @RequestParam("oldpassword") String oldPassword) {
+        User user = userService.findUserByEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName());
+
+        if (!userService.checkIfValidOldPassword(user, oldPassword)) {
+            throw new InvalidOldPasswordException();
+        }
+        userService.changeUserPassword(user, password);
+        return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
+    }*/
 }

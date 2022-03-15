@@ -1,10 +1,6 @@
 package com.example.MyPetProject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -13,18 +9,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String matchingPassword;
 
-    public User(){
-
+    public User() {
     }
 
     public User(String firstName, String lastName, String email, String password, String matchingPassword) {
@@ -33,6 +24,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.matchingPassword = matchingPassword;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {

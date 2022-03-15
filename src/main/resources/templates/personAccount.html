@@ -10,7 +10,9 @@
     Здравствуйте, <b>[[${#request.userPrincipal.principal.firstName}]] !</b>
 </p>
 <p>Ваш email: [[${#request.userPrincipal.principal.email}]]</p>
-<button>Изменить пароль</button>
+<button>
+    <a th:href="@{/changePass}"> Изменить пароль </a>
+</button>
 <br>
 <h4>
     <a th:href="@{/users}">All users </a>

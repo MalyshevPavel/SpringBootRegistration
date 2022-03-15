@@ -33,4 +33,4 @@ build/
 .vscode/
 src/main/resources/application.properties
 src/main/resources/static/styles/bootstrap.min.css
-
+src/main/resources/templates/myLogin.html
