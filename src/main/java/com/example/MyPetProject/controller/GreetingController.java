@@ -72,18 +72,4 @@ public class GreetingController {
         }
         return "passUpdatedSuccess";
     }
-    /*@PostMapping("/user/updatePassword")
-    @PreAuthorize("hasRole('READ_PRIVILEGE')")
-    public GenericResponse changeUserPassword(Locale locale,
-                                              @RequestParam("password") String password,
-                                              @RequestParam("oldpassword") String oldPassword) {
-        User user = userService.findUserByEmail(
-                SecurityContextHolder.getContext().getAuthentication().getName());
-
-        if (!userService.checkIfValidOldPassword(user, oldPassword)) {
-            throw new InvalidOldPasswordException();
-        }
-        userService.changeUserPassword(user, password);
-        return new GenericResponse(messages.getMessage("message.updatePasswordSuc", null, locale));
-    }*/
 }

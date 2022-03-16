@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Смена пароля</title>
+    <script type="text/javascript" th:src="@{/js/actions.js}"></script>
+    <script th:inline="javascript">
+        var newpass = /*[[${newPassword}]]*/;
+        var confirmpass = /*[[${passConfirm}]]*/;
+    </script>
 </head>
     <body>
-        <form action="passUpdate" method="post">
-            <div>
+        <form action="passUpdate" method="post" id="form1">
+            <div style="text-align:center">
                 <input id="oldpass" name="oldPassword" type="password" placeholder="Old password" />
                 <br>
                 <br>
@@ -15,7 +20,7 @@
                 <input id="passConfirm" name="passConfirm" type="password" placeholder="Confirm new password"/>
                 <br>
                 <br>
-                <button type="submit">Change Password</button>
+                <button type="submit" th:onclick="return equals()">Change Password</button>
             </div>
         </form>
     </body>
