@@ -12,6 +12,7 @@
   - Java
   - HTML
   - CSS
+  - JavaScript
   - Thymeleaf
   - MySQL
   - Maven
