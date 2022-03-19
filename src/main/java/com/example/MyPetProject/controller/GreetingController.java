@@ -36,11 +36,6 @@ public class GreetingController {
         return "registrationSuccess";
     }
 
-    @GetMapping("/myLogin")
-    public String login() {
-        return "myLogin";
-    }
-
     @GetMapping("/personAccount")
     public String accountLogin() {
         return "personAccount";
@@ -71,5 +66,17 @@ public class GreetingController {
             userRepository.save(user);
         }
         return "passUpdatedSuccess";
+    }
+
+    @GetMapping("/deleteUser")
+    public String deleteUserForm(){
+        return "deleteUser";
+    }
+
+    @PostMapping("deleteProcess")
+    public String deleteAccount(@RequestParam String email){
+        User user = userRepository.findByEmail(email);
+        userRepository.delete(user);
+        return "accDeletedSuccessfully";
     }
 }
