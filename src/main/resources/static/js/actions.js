@@ -1,7 +1,16 @@
 function equals() {
-    var form1 = document.getElementById('form1');
-    if (form1.newPassword.value != form1.passConfirm.value) {
-        alert("Password mismatch!");
+    var form = document.getElementById('form1');
+    if (form.newPassword.value != form.passConfirm.value) {
+        alert("Пароли не совпадают!");
+        return false;
+    }
+    return true;
+}
+
+function equalsCheck() {
+    var form = document.getElementById('form2');
+    if (form.password.value != form.matchingPassword.value) {
+        alert("Пароли не совпадают!");
         return false;
     }
     return true;

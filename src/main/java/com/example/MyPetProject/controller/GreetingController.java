@@ -69,12 +69,12 @@ public class GreetingController {
     }
 
     @GetMapping("/deleteUser")
-    public String deleteUserForm(){
+    public String deleteUserForm() {
         return "deleteUser";
     }
 
     @PostMapping("deleteProcess")
-    public String deleteAccount(@RequestParam String email){
+    public String deleteAccount(@RequestParam String email) {
         User user = userRepository.findByEmail(email);
         userRepository.delete(user);
         return "accDeletedSuccessfully";
